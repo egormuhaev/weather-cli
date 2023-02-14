@@ -1,0 +1,34 @@
+{
+  "name": "weather-cli",
+  "version": "1.0.0",
+  "private": false,
+  "description": "CLI for getting weather",
+  "main": "index.js",
+  "bin": "./index.js",
+  "os": ["!win32"],
+  "cpu": ["!ARM"],
+  "man": [],
+  "engines": {
+    "node": ">14"
+  },
+  "funding": "",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "cli",
+    "weather"
+  ],
+  "author": "Egor Muhaev",
+  "license": "ISC",
+  "homepage": "https://egormuhaev.ru",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "bugs": {
+    "url": "",
+    "email": "egormuhaev@yandex.ru"
+  }
+}
