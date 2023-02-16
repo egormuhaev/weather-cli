@@ -61,13 +61,13 @@ const initCLI = () => {
         return printHelp();
     }
     if (args.s) {
-        saveCity(args.s);
+        return  saveCity(args.s);
     }
     if (args.t) {
         return saveToken(args.t);
     }
 
-    getForCast();
+    return getForCast();
 }
 
 initCLI();
