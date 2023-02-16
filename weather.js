@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 import { getArgs } from "./helpers/args.js";
-import { printHelp, printError, printSucces } from "./services/log.service.js";
+import { printHelp, printError, printSucces, printWeather } from "./services/log.service.js";
 import { saveKeyValue, TOKEN_DICTIONARY } from "./services/storage.service.js";
-import { getWeathe } from "./services/api.service.js"
+import { getWeathe, getIcon } from "./services/api.service.js";
 
 
 const saveToken = async (token) => {
@@ -10,6 +10,7 @@ const saveToken = async (token) => {
         printError('TOKEN IS NULL');
         return;
     }
+
     try {
         await saveKeyValue(TOKEN_DICTIONARY.token, token);
         printSucces("TOKEN SAVE");
@@ -17,6 +18,7 @@ const saveToken = async (token) => {
         printError(`TOKEN DONT SAVE: ${error.message}`);
     }
 }
+
 
 const saveCity = async (city) => {
     if(!city.length) {
@@ -36,7 +38,7 @@ const saveCity = async (city) => {
 const getForCast = async (city) => {
     try {
         const weather = await getWeathe(city);
-        console.log(weather);
+        printWeather(weather, getIcon(weather.weather[0].icon))
     } catch (error) {
         if (error?.response?.status == 404) {
             printError('INVALID CITY');
@@ -56,16 +58,16 @@ const initCLI = () => {
     const args = getArgs(process.argv);
 
     if (args.h) {
-        printHelp();
+        return printHelp();
     }
     if (args.s) {
-        return saveCity(args.s);
+        saveCity(args.s);
     }
     if (args.t) {
         return saveToken(args.t);
     }
 
-    getForCast(process?.env?.CITY);
+    getForCast();
 }
 
 initCLI();
